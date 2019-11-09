@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import api from '../utils/api'
+import { axiosWithAuth } from '../utils/api'
 
 const Login = (props) => {
   // make a post request to retrieve a token from the api
@@ -19,17 +19,17 @@ const Login = (props) => {
     }
 
     const handleSubmit = e => {
-        e.preventDefault()
+      e.preventDefault()
 
-        api()
-			.post('/login', userData)
-			.then(res => {
-				localStorage.setItem('token', res.data.payload)
-				props.history.push('/bubblepage')
-			})
-			.catch(err => {
-				setError(err)
-			})
+      axiosWithAuth()
+			  .post('/api/login', userData)
+			  .then(res => {
+				  localStorage.setItem('token', res.data.payload)
+				  props.history.push('/bubblepage')
+			  })
+			  .catch(err => {
+				  setError(err)
+			  })
     }
 
   return (
